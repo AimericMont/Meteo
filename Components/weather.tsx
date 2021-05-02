@@ -1,8 +1,9 @@
 import React from 'react';
 
-import {Text, View, ScrollView} from 'react-native';
+import {View, ScrollView, StyleSheet} from 'react-native';
 
 import {getWeatherFromApi} from '../API/MDBApi';
+import TemplateWeather from './templateWeather';
 import {CityWeather} from './weather.type';
 
 interface State {
@@ -31,16 +32,24 @@ export class Weather extends React.Component<Props, State> {
 
   render() {
     return (
-      <View>
+      <View style={styles.screenContainer}>
         <ScrollView>
           {this.state.weather &&
             this.state.weather.list?.map(forecast => {
-              return <Text key={forecast.dt}>{forecast.dt_txt}</Text>;
+              return (
+                <TemplateWeather forecastElement={forecast} key={forecast.dt} />
+              );
             })}
         </ScrollView>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  screenContainer: {
+    marginTop: 20,
+  },
+});
 
 export default Weather;
