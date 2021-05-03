@@ -9,6 +9,6 @@ export interface ForecastData {
   humidity: number;
   rainPourcent: number;
   timeForecast: string;
-  weatherMain: string;
+  weatherMain?: string;
   windSpeed: number;
 }

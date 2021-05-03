@@ -10,18 +10,20 @@ import {CityWeather} from '../Components/rowAPIWeather.type';
 import {ForecastData} from '../Components/weatherDataUsed.type';
 
 export const convertRowDataAPI = (rowAPIdata: CityWeather) => {
-  const forecastData: ForecastData[] = rowAPIdata.list?.map(item => {
-    return {
-      id: item.dt,
-      tempMin: item.main.temp_min,
-      tempMax: item.main.temp_max,
-      humidity: item.main.humidity,
-      rainPourcent: item.pop,
-      timeForecast: item.dt_txt,
-      weatherMain: item.weather?.[0].main,
-      windSpeed: item.wind.speed,
-    };
-  });
+  const forecastData: ForecastData[] = rowAPIdata.list
+    ? rowAPIdata.list.map(item => {
+        return {
+          id: item.dt,
+          tempMin: item.main.temp_min,
+          tempMax: item.main.temp_max,
+          humidity: item.main.humidity,
+          rainPourcent: item.pop,
+          timeForecast: item.dt_txt,
+          weatherMain: item.weather?.[0].main,
+          windSpeed: item.wind.speed,
+        };
+      })
+    : [];
 
   return {
     forecasts: forecastData,
