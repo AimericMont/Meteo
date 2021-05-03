@@ -1,26 +1,23 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-import Weather from './src/Components/weather';
+//import ListScreen from './Screen/ListScreen';
+import FavorisScreen from './Screen/FavorisScreen';
+
+const Stack = createStackNavigator();
 
 export default class App extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <View style={styles.screenContainer}>
-          <Weather />
-        </View>
+        <Stack.Navigator>
+          <Stack.Screen name="Favoris" component={FavorisScreen} />
+        </Stack.Navigator>
       </NavigationContainer>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  screenContainer: {
-    marginLeft: 10,
-    marginRight: 10,
-  },
-});
