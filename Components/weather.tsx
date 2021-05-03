@@ -32,11 +32,9 @@ export class Weather extends React.Component<Props, State> {
     return (
       <View style={styles.screenContainer}>
         <ScrollView>
-          {this.state.weather?.list?.map(forecast => {
-            return (
-              <TemplateWeather forecastElement={forecast} key={forecast.dt} />
-            );
-          })}
+          {this.state.weather?.list?.map(forecast => (
+            <TemplateWeather forecastElement={forecast} key={forecast.dt} />
+          ))}
         </ScrollView>
       </View>
     );

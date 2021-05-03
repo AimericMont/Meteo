@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   text: {
-    color: 'white',
     fontSize: 15,
   },
   textTitle: {
