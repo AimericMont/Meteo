@@ -1,13 +1,12 @@
 import React from 'react';
 
 import {View, ScrollView, StyleSheet} from 'react-native';
-
-import {getWeatherFromApi} from '../API/MDBApi';
+import {getWeatherData} from '../API/getWeatherData';
 import TemplateWeather from './templateWeather';
-import {CityWeather} from './weather.type';
+import {WeatherDataUsed} from './weatherData.type';
 
 interface State {
-  weather: CityWeather;
+  weather: WeatherDataUsed;
 }
 
 interface Props {}
@@ -16,7 +15,7 @@ export class Weather extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      weather: {cod: '', message: 0, cnt: 0, list: null, city: null},
+      weather: {forecasts: [], city: ''},
     };
   }
 
@@ -25,15 +24,15 @@ export class Weather extends React.Component<Props, State> {
   };
 
   loadWeather = () => {
-    getWeatherFromApi().then(data => this.setState({weather: data}));
+    getWeatherData().then(data => this.setState({weather: data}));
   };
 
   render() {
     return (
       <View style={styles.screenContainer}>
         <ScrollView>
-          {this.state.weather?.list?.map(forecast => (
-            <TemplateWeather forecastElement={forecast} key={forecast.dt} />
+          {this.state.weather.forecasts?.map(forecast => (
+            <TemplateWeather forecastElement={forecast} key={forecast.id} />
           ))}
         </ScrollView>
       </View>

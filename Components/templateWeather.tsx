@@ -1,18 +1,18 @@
 import React from 'react';
 
 import {Text, View, StyleSheet} from 'react-native';
-import {Forecast} from './weather.type';
+import {ForecastData} from './weatherData.type';
 
 const KELVIN_OFFSET: number = 273;
 const METER_PER_SECOND_RATIO: number = 3.6;
 
 interface Props {
-  forecastElement: Forecast;
+  forecastElement: ForecastData;
 }
 
 export class TemplateWeather extends React.Component<Props> {
   render() {
-    const forecast: Forecast = this.props.forecastElement;
+    const forecast: ForecastData = this.props.forecastElement;
 
     const convertKelvinToCelcius = (temperature: number) =>
       Math.trunc((temperature - KELVIN_OFFSET) * 100) / 100;
@@ -23,18 +23,18 @@ export class TemplateWeather extends React.Component<Props> {
     return (
       <View>
         <View>
-          <Text style={styles.textTitle}>{forecast.dt_txt}</Text>
+          <Text style={styles.textTitle}>{forecast.timeForecast}</Text>
         </View>
         <View style={styles.caracterictics}>
           <View style={styles.caracteristicsColumn}>
             <View>
               <Text style={styles.text}>
-                T°Max :{convertKelvinToCelcius(forecast.main.temp_max)}
+                T°Max :{convertKelvinToCelcius(forecast.tempMax)}
               </Text>
             </View>
             <View>
               <Text style={styles.text}>
-                T°Min :{convertKelvinToCelcius(forecast.main.temp_min)}
+                T°Min :{convertKelvinToCelcius(forecast.tempMin)}
               </Text>
             </View>
           </View>
@@ -42,22 +42,22 @@ export class TemplateWeather extends React.Component<Props> {
             <View>
               <Text style={styles.text}>
                 Speed Wind :
-                {convertMeterSecondToKilometerHour(forecast.wind.speed)}
+                {convertMeterSecondToKilometerHour(forecast.windSpeed)}
                 km/h
               </Text>
             </View>
             <View>
-              <Text style={styles.text}>Rain : {forecast.pop * 100}%</Text>
+              <Text style={styles.text}>
+                Rain : {forecast.rainPourcent * 100}%
+              </Text>
             </View>
           </View>
           <View style={styles.caracteristicsColumn}>
             <View>
-              <Text style={styles.text}>{forecast.weather?.[0].main}</Text>
+              <Text style={styles.text}>{forecast.weatherMain}</Text>
             </View>
             <View>
-              <Text style={styles.text}>
-                Humidity : {forecast.main.humidity}%
-              </Text>
+              <Text style={styles.text}>Humidity : {forecast.humidity}%</Text>
             </View>
           </View>
         </View>
