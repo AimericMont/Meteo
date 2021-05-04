@@ -48,7 +48,7 @@ export class TemplateWeather extends React.Component<Props> {
             </View>
             <View>
               <Text style={styles.text}>
-                Rain : {forecast.rainPourcent * 100}%
+                Rain : {forecast.rainProbability * 100}%
               </Text>
             </View>
           </View>

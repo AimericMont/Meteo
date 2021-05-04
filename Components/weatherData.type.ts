@@ -7,7 +7,7 @@ export interface ForecastData {
   tempMin: number;
   tempMax: number;
   humidity: number;
-  rainPourcent: number;
+  rainProbability: number;
   timeForecast: string;
   weatherMain?: string;
   windSpeed: number;

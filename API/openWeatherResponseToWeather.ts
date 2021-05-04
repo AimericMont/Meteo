@@ -1,7 +1,9 @@
 import {CityWeather} from '../Components/weatherRawApi.type';
 import {ForecastData, WeatherDataUsed} from '../Components/weatherData.type';
 
-export const convertrawDataAPI = (rawAPIdata: CityWeather): WeatherDataUsed => {
+export const openWeatherResponseToWeather = (
+  rawAPIdata: CityWeather,
+): WeatherDataUsed => {
   const forecastData: ForecastData[] = rawAPIdata.list
     ? rawAPIdata.list.map(item => {
         return {
@@ -9,7 +11,7 @@ export const convertrawDataAPI = (rawAPIdata: CityWeather): WeatherDataUsed => {
           tempMin: item.main.temp_min,
           tempMax: item.main.temp_max,
           humidity: item.main.humidity,
-          rainPourcent: item.pop,
+          rainProbability: item.pop,
           timeForecast: item.dt_txt,
           weatherMain: item.weather?.[0].main,
           windSpeed: item.wind.speed,
