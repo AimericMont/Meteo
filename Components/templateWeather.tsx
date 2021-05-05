@@ -5,6 +5,7 @@ import {ForecastData} from './weatherData.type';
 import {convertKelvinToCelcius} from './unitConverter';
 import {convertMeterSecondToKilometerHour} from './unitConverter';
 
+
 interface Props {
   forecastElement: ForecastData;
 }
@@ -12,6 +13,7 @@ interface Props {
 export class TemplateWeather extends React.Component<Props> {
   render() {
     const forecast: ForecastData = this.props.forecastElement;
+
 
     return (
       <View>
