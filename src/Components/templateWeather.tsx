@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Animated} from 'react-native';
 import {ForecastData} from './weatherData.type';
 import {convertKelvinToCelcius} from './unitConverter';
 import {convertMeterSecondToKilometerHour} from './unitConverter';
@@ -11,15 +11,33 @@ interface Props {
 }
 
 export class TemplateWeather extends React.Component<Props> {
+  spinValue = new Animated.Value(0);
+
+  spin = () => {
+    this.spinValue.setValue(0);
+
+    Animated.timing(this.spinValue, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
+
   render() {
     const forecast: ForecastData = this.props.forecastElement;
+    const rotate = this.spinValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '360deg'],
+    });
 
     return (
       <View>
         <View style={styles.viewParent}>
           <Text style={styles.textTitle}>{forecast.timeForecast}</Text>
-          <TouchableOpacity activeOpacity={0.5}>
-            <FontAwesome5 name={'star'} size={25} color={'green'} />
+          <TouchableOpacity onPress={this.spin}>
+            <Animated.View style={{transform: [{rotate}]}}>
+              <FontAwesome5 name={'star'} size={20} color={'green'} />
+            </Animated.View>
           </TouchableOpacity>
         </View>
         <View style={styles.caracterictics}>
