@@ -34,9 +34,11 @@ export class TemplateWeather extends React.Component<Props> {
       <View>
         <View style={styles.viewParent}>
           <Text style={styles.textTitle}>{forecast.timeForecast}</Text>
-          <TouchableOpacity onPress={this.spin}>
+          <TouchableOpacity
+            onPress={this.spin}
+            hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}>
             <Animated.View style={{transform: [{rotate}]}}>
-              <FontAwesome5 name={'star'} size={20} color={'green'} />
+              <FontAwesome5 name={'star'} size={25} color={'green'} />
             </Animated.View>
           </TouchableOpacity>
         </View>
@@ -84,6 +86,7 @@ export class TemplateWeather extends React.Component<Props> {
 const styles = StyleSheet.create({
   viewParent: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   caracteristicsColumn: {
     flex: 0.33,
@@ -98,6 +101,7 @@ const styles = StyleSheet.create({
   textTitle: {
     color: 'red',
     fontSize: 25,
+    paddingRight: 16,
   },
 });
 
