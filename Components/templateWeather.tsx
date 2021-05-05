@@ -2,9 +2,8 @@ import React from 'react';
 
 import {Text, View, StyleSheet} from 'react-native';
 import {ForecastData} from './weatherData.type';
-
-const KELVIN_OFFSET: number = 273;
-const METER_PER_SECOND_RATIO: number = 3.6;
+import {convertKelvinToCelcius} from './unitConverter';
+import {convertMeterSecondToKilometerHour} from './unitConverter';
 
 interface Props {
   forecastElement: ForecastData;
@@ -13,12 +12,6 @@ interface Props {
 export class TemplateWeather extends React.Component<Props> {
   render() {
     const forecast: ForecastData = this.props.forecastElement;
-
-    const convertKelvinToCelcius = (temperature: number) =>
-      Math.trunc((temperature - KELVIN_OFFSET) * 100) / 100;
-
-    const convertMeterSecondToKilometerHour = (speed: number) =>
-      Math.trunc(speed * METER_PER_SECOND_RATIO * 100) / 100;
 
     return (
       <View>
