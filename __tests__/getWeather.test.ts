@@ -1,4 +1,4 @@
-import {getWeatherFromApi} from '../API/MDBApi';
+import {getWeatherFromApi} from '../src/API/MDBApi';
 
 describe('get weather', () => {
   it('Api test', async () => {

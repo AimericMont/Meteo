@@ -1,5 +1,5 @@
 import {WeatherDataUsed} from '../Components/weatherData.type';
-import {rawData} from '../test/APIRawDataReturnExemple';
+import {rawData} from '../dataTest/APIRawDataReturnExemple';
 import {openWeatherResponseToWeather} from './openWeatherResponseToWeather';
 //import {getWeatherFromApi} from './MDBApi';
 

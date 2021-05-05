@@ -1,5 +1,5 @@
-import {convertKelvinToCelcius} from '../Components/unitConverter';
-import {convertMeterSecondToKilometerHour} from '../Components/unitConverter';
+import {convertKelvinToCelcius} from '../src/Components/unitConverter';
+import {convertMeterSecondToKilometerHour} from '../src/Components/unitConverter';
 
 it('negative temperature', () => {
   expect(convertKelvinToCelcius(-10)).toStrictEqual(-283);

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {ForecastData} from './weatherData.type';
 import {convertKelvinToCelcius} from './unitConverter';
 import {convertMeterSecondToKilometerHour} from './unitConverter';
-
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 interface Props {
   forecastElement: ForecastData;
@@ -14,11 +14,13 @@ export class TemplateWeather extends React.Component<Props> {
   render() {
     const forecast: ForecastData = this.props.forecastElement;
 
-
     return (
       <View>
-        <View>
+        <View style={styles.viewParent}>
           <Text style={styles.textTitle}>{forecast.timeForecast}</Text>
+          <TouchableOpacity activeOpacity={0.5}>
+            <FontAwesome5 name={'star'} size={25} color={'green'} />
+          </TouchableOpacity>
         </View>
         <View style={styles.caracterictics}>
           <View style={styles.caracteristicsColumn}>
