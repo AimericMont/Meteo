@@ -1,4 +1,4 @@
-import {getWeatherData} from '../API/getWeatherData';
+import {getWeatherData} from '../src/API/getWeatherData';
 
 describe('get weather', () => {
   it('Api test', async () => {

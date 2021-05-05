@@ -1,10 +1,10 @@
-import {openWeatherResponseToWeather} from '../API/openWeatherResponseToWeather';
+import {openWeatherResponseToWeather} from '../src/API/openWeatherResponseToWeather';
 
-import {WeatherDataUsed} from '../Components/weatherData.type';
-import {CityWeather} from '../Components/weatherRawApi.type';
+import {WeatherDataUsed} from '../src/Components/weatherData.type';
+import {CityWeather} from '../src/Components/weatherRawApi.type';
 
-import {rawDataMock} from '../test/rawDataForTest';
-import {dataWeather} from '../test/dataForTest';
+import {rawDataMock} from '../src/dataTest/rawDataForTest';
+import {dataWeather} from '../src/dataTest/dataForTest';
 const rawDataEmpty: CityWeather = {
   cod: '',
   message: 0,
