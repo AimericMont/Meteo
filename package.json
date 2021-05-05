@@ -15,6 +15,8 @@
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.4",
     "ionicons": "^5.5.1",
+    "lottie-react-native": "^4.0.2",
+    "lottie-web": "^5.7.8",
     "moment": "^2.29.1",
     "react": "17.0.1",
     "react-native": "0.64.0",
@@ -23,6 +25,7 @@
     "react-native-reanimated": "^2.1.0",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.1.1",
+    "react-native-svg": "^12.1.1",
     "react-native-vector-icons": "^8.1.0"
   },
   "devDependencies": {
@@ -31,9 +34,11 @@
     "@react-native-community/eslint-config": "^2.0.0",
     "@types/jest": "^26.0.20",
     "@types/react-native": "^0.64.0",
+    "@types/react-native-vector-icons": "^6.4.6",
     "@types/react-test-renderer": "^16.9.2",
     "babel-jest": "^26.6.3",
     "eslint": "^7.14.0",
+    "husky": "^6.0.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.64.0",
     "react-test-renderer": "17.0.1",
@@ -51,6 +56,11 @@
       "jsx",
       "json",
       "node"
+    ]
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
     ]
   }
 }
