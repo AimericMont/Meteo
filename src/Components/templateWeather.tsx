@@ -11,11 +11,17 @@ interface Props {
 }
 
 export class TemplateWeather extends React.Component<Props> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      starColor: 'green',
+    };
+  }
+
   spinValue = new Animated.Value(0);
 
   spin = () => {
     this.spinValue.setValue(0);
-
     Animated.timing(this.spinValue, {
       toValue: 1,
       duration: 500,
@@ -23,22 +29,43 @@ export class TemplateWeather extends React.Component<Props> {
     }).start();
   };
 
-  render() {
-    const forecast: ForecastData = this.props.forecastElement;
-    const rotate = this.spinValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: ['0deg', '360deg'],
-    });
+  changecolor = () => {
+    switch (this.state.starColor) {
+      case 'tomato':
+        this.setState({starColor: 'green'});
+        break;
+      case 'green':
+        this.setState({starColor: 'tomato'});
+        break;
+      default:
+        this.setState({starColor: 'blue'});
+    }
+  };
 
+  rotate = this.spinValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
+
+  forecast: ForecastData = this.props.forecastElement;
+
+  render() {
     return (
       <View>
         <View style={styles.viewParent}>
-          <Text style={styles.textTitle}>{forecast.timeForecast}</Text>
+          <Text style={styles.textTitle}>{this.forecast.timeForecast}</Text>
           <TouchableOpacity
-            onPress={this.spin}
+            onPress={() => {
+              this.spin();
+              this.changecolor();
+            }}
             hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}>
-            <Animated.View style={{transform: [{rotate}]}}>
-              <FontAwesome5 name={'star'} size={25} color={'green'} />
+            <Animated.View style={{transform: [{rotate: this.rotate}]}}>
+              <FontAwesome5
+                name={'star'}
+                size={25}
+                color={this.state.starColor}
+              />
             </Animated.View>
           </TouchableOpacity>
         </View>
@@ -46,12 +73,12 @@ export class TemplateWeather extends React.Component<Props> {
           <View style={styles.caracteristicsColumn}>
             <View>
               <Text style={styles.text}>
-                T°Max :{convertKelvinToCelcius(forecast.tempMax)}
+                T°Max :{convertKelvinToCelcius(this.forecast.tempMax)}
               </Text>
             </View>
             <View>
               <Text style={styles.text}>
-                T°Min :{convertKelvinToCelcius(forecast.tempMin)}
+                T°Min :{convertKelvinToCelcius(this.forecast.tempMin)}
               </Text>
             </View>
           </View>
@@ -59,22 +86,24 @@ export class TemplateWeather extends React.Component<Props> {
             <View>
               <Text style={styles.text}>
                 Speed Wind :
-                {convertMeterSecondToKilometerHour(forecast.windSpeed)}
+                {convertMeterSecondToKilometerHour(this.forecast.windSpeed)}
                 km/h
               </Text>
             </View>
             <View>
               <Text style={styles.text}>
-                Rain : {forecast.rainProbability * 100}%
+                Rain : {this.forecast.rainProbability * 100}%
               </Text>
             </View>
           </View>
           <View style={styles.caracteristicsColumn}>
             <View>
-              <Text style={styles.text}>{forecast.weatherMain}</Text>
+              <Text style={styles.text}>{this.forecast.weatherMain}</Text>
             </View>
             <View>
-              <Text style={styles.text}>Humidity : {forecast.humidity}%</Text>
+              <Text style={styles.text}>
+                Humidity : {this.forecast.humidity}%
+              </Text>
             </View>
           </View>
         </View>
