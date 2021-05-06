@@ -9,8 +9,10 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 interface Props {
   forecastElement: ForecastData;
 }
-
-export class TemplateWeather extends React.Component<Props> {
+interface MyState {
+  starColor: string;
+}
+export class TemplateWeather extends React.Component<Props, MyState> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -131,7 +133,6 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 25,
     paddingRight: 16,
-
   },
 });
 
