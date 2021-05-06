@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 25,
     paddingRight: 16,
+
   },
 });
 
