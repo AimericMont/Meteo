@@ -5,6 +5,8 @@ import {ForecastData} from './weatherData.type';
 import {convertKelvinToCelcius} from './unitConverter';
 import {convertMeterSecondToKilometerHour} from './unitConverter';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import {connect} from 'react-redux';
+import {action} from '../Store/actions';
 
 interface Props {
   forecastElement: ForecastData;
@@ -13,7 +15,7 @@ interface MyState {
   starColor: string;
 }
 export class TemplateWeather extends React.Component<Props, MyState> {
-  constructor(props: any) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       starColor: 'green',
@@ -44,22 +46,26 @@ export class TemplateWeather extends React.Component<Props, MyState> {
     }
   };
 
+  toggleFavorite = () => {
+    this.props.dispatch(action(this.props.forecastElement));
+  };
+
   rotate = this.spinValue.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg'],
   });
-
-  forecast: ForecastData = this.props.forecastElement;
-
   render() {
+    const forecast: ForecastData = this.props.forecastElement;
+
     return (
       <View>
         <View style={styles.viewParent}>
-          <Text style={styles.textTitle}>{this.forecast.timeForecast}</Text>
+          <Text style={styles.textTitle}>{forecast.timeForecast}</Text>
           <TouchableOpacity
             onPress={() => {
               this.spin();
               this.changecolor();
+              this.toggleFavorite();
             }}
             hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}>
             <Animated.View style={{transform: [{rotate: this.rotate}]}}>
@@ -75,12 +81,12 @@ export class TemplateWeather extends React.Component<Props, MyState> {
           <View style={styles.caracteristicsColumn}>
             <View>
               <Text style={styles.text}>
-                T°Max :{convertKelvinToCelcius(this.forecast.tempMax)}
+                T°Max :{convertKelvinToCelcius(forecast.tempMax)}
               </Text>
             </View>
             <View>
               <Text style={styles.text}>
-                T°Min :{convertKelvinToCelcius(this.forecast.tempMin)}
+                T°Min :{convertKelvinToCelcius(forecast.tempMin)}
               </Text>
             </View>
           </View>
@@ -88,24 +94,22 @@ export class TemplateWeather extends React.Component<Props, MyState> {
             <View>
               <Text style={styles.text}>
                 Speed Wind :
-                {convertMeterSecondToKilometerHour(this.forecast.windSpeed)}
+                {convertMeterSecondToKilometerHour(forecast.windSpeed)}
                 km/h
               </Text>
             </View>
             <View>
               <Text style={styles.text}>
-                Rain : {this.forecast.rainProbability * 100}%
+                Rain : {forecast.rainProbability * 100}%
               </Text>
             </View>
           </View>
           <View style={styles.caracteristicsColumn}>
             <View>
-              <Text style={styles.text}>{this.forecast.weatherMain}</Text>
+              <Text style={styles.text}>{forecast.weatherMain}</Text>
             </View>
             <View>
-              <Text style={styles.text}>
-                Humidity : {this.forecast.humidity}%
-              </Text>
+              <Text style={styles.text}>Humidity : {forecast.humidity}%</Text>
             </View>
           </View>
         </View>
@@ -136,4 +140,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TemplateWeather;
+export default connect()(TemplateWeather);
