@@ -1,12 +1,31 @@
 import React from 'react';
 
-import {View, Text, StyleSheet} from 'react-native';
+import {View, ScrollView, StyleSheet} from 'react-native';
+import {connect} from 'react-redux';
+import TemplateWeather from '../Components/templateWeather';
+import {ForecastData, WeatherDataUsed} from '../Components/weatherData.type';
+import {WeatherState} from '../Store/Reducers/favoriteReducer';
 
-class FavoritesScreen extends React.Component {
+interface State {
+  weather: WeatherDataUsed;
+}
+
+interface Props {
+  favoriteForecast: ForecastData[];
+}
+
+export class FavoritesScreen extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+  }
   render() {
     return (
       <View style={styles.screenContainer}>
-        <Text>Favorites Screen</Text>
+        <ScrollView>
+          {this.props.favoriteForecast?.map((forecast: ForecastData) => (
+            <TemplateWeather forecastElement={forecast} key={forecast.id} />
+          ))}
+        </ScrollView>
       </View>
     );
   }
@@ -14,10 +33,14 @@ class FavoritesScreen extends React.Component {
 
 const styles = StyleSheet.create({
   screenContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 20,
   },
 });
 
-export default FavoritesScreen;
+const mapStateToProps = (state: WeatherState) => {
+  return {
+    favoriteForecast: state.favoriteForecast,
+  };
+};
+
+export default connect(mapStateToProps)(FavoritesScreen);
