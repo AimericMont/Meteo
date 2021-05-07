@@ -19,7 +19,6 @@ export class FavoritesScreen extends React.Component<Props, State> {
     super(props);
   }
   render() {
-    console.log(this.props);
     return (
       <View style={styles.screenContainer}>
         <ScrollView>

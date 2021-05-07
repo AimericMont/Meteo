@@ -7,19 +7,16 @@ import {convertMeterSecondToKilometerHour} from './unitConverter';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {connect} from 'react-redux';
 import {action} from '../Store/actions';
+import {WeatherState} from '../Store/Reducers/favoriteReducer';
 
 interface Props {
   forecastElement: ForecastData;
+  favoriteForecast: ForecastData[];
 }
-interface MyState {
-  starColor: string;
-}
-export class TemplateWeather extends React.Component<Props, MyState> {
+
+export class TemplateWeather extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
-    this.state = {
-      starColor: 'green',
-    };
   }
 
   spinValue = new Animated.Value(0);
@@ -33,16 +30,11 @@ export class TemplateWeather extends React.Component<Props, MyState> {
     }).start();
   };
 
-  changecolor = () => {
-    switch (this.state.starColor) {
-      case 'tomato':
-        this.setState({starColor: 'green'});
-        break;
-      case 'green':
-        this.setState({starColor: 'tomato'});
-        break;
-      default:
-        this.setState({starColor: 'blue'});
+  isItFavorite = () => {
+    if (this.props.favoriteForecast.includes(this.props.forecastElement)) {
+      return 'red';
+    } else {
+      return 'green';
     }
   };
 
@@ -64,7 +56,6 @@ export class TemplateWeather extends React.Component<Props, MyState> {
           <TouchableOpacity
             onPress={() => {
               this.spin();
-              this.changecolor();
               this.toggleFavorite();
             }}
             hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}>
@@ -72,7 +63,7 @@ export class TemplateWeather extends React.Component<Props, MyState> {
               <FontAwesome5
                 name={'star'}
                 size={25}
-                color={this.state.starColor}
+                color={this.isItFavorite()}
               />
             </Animated.View>
           </TouchableOpacity>
@@ -140,4 +131,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect()(TemplateWeather);
+const mapStateToProps = (state: WeatherState) => {
+  return {
+    favoriteForecast: state.favoriteForecast,
+  };
+};
+
+export default connect(mapStateToProps)(TemplateWeather);
